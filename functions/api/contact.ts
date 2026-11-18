@@ -2,8 +2,8 @@ import {
     validateSubmission,
     normalizeSubmission
 } from "../lib/contact-validation";
-
 import {verifyTurnstile} from "../lib/turnstile";
+import {sendContactEmail} from "../lib/email";
 
 export class InvalidEncodingError extends Error {
     constructor() {
@@ -73,6 +73,8 @@ export async function readLimitedBody(request: Request, maxBytes: number): Promi
 
 interface Env {
     TURNSTILE_SECRET_KEY: string;
+    TURNSTILE_EXPECTED_HOSTNAME: string;
+    RESEND_API_KEY: string;
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
@@ -162,6 +164,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         }
 
         const secret = context.env.TURNSTILE_SECRET_KEY;
+        const hostname = context.env.TURNSTILE_EXPECTED_HOSTNAME;
 
         if (!secret) {
             console.error("Turnstile secret is not configured.");
@@ -177,7 +180,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
             );
         }
 
-        const verifiedContact = await verifyTurnstile(token, secret);
+        if (!hostname) {
+            console.error("Turnstile hostname is not configured.");
+
+            return Response.json(
+                {
+                    success: false,
+                    message: "Security verification unavailable"
+                },
+                {
+                    status: 503
+                }
+            );
+        }
+
+        const verifiedContact = await verifyTurnstile(token, secret, hostname);
 
         if (!verifiedContact) {
             return Response.json(
@@ -191,10 +208,27 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
             );
         }
 
+        const resendKey = context.env.RESEND_API_KEY;
+
+        if (!resendKey) {
+            return Response.json(
+                {
+                    success: false,
+                    message: "Email service temporarily unavailable"
+                },
+                {
+                    status: 503,
+                }
+            );
+        }
+
+
+        await sendContactEmail(normalized, resendKey);
+
         return new Response(
             JSON.stringify({
                 success: true,
-                message: "Received submission from " + normalized.name
+                message: "Message accepted for delivery"
             }),
             {
                 status: 200,

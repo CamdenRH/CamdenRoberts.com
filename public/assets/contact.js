@@ -52,7 +52,7 @@ form.addEventListener("submit", async (event) => {
 
         if (response.ok) {
             submittedSuccessfully = true;
-            status.textContent = "Message successfully validated. Email services not connected yet. No message sent.";
+            status.textContent = "Message sent successfully! I will get back to you soon.";
             console.log("Submission validated successfully.");
         } else {
             switch (response.status) {

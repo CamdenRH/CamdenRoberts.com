@@ -16,6 +16,7 @@ const SITEVERIFY_URL =
 
 const TEST_TOKEN = "test-turnstile-token";
 const TEST_SECRET = "test-turnstile-secret";
+const TEST_HOSTNAME = "camdenroberts.com";
 
 function mockVerificationResponse(
     body: unknown,
@@ -35,6 +36,15 @@ function mockVerificationResponse(
     return fetchMock;
 }
 
+function mockSuccessfulVerification(
+    hostname = TEST_HOSTNAME
+) {
+    return mockVerificationResponse({
+        success: true,
+        hostname
+    });
+}
+
 afterEach(() => {
     vi.unstubAllGlobals();
 });
@@ -45,25 +55,26 @@ afterEach(() => {
 
 describe("verifyTurnstile - successful verification", () => {
 
-    it("returns true when Cloudflare approves the token", async () => {
-        mockVerificationResponse({
-            success: true
-        });
+    it("accepts a successful response with a matching hostname", async () => {
+        mockSuccessfulVerification();
 
         const result = await verifyTurnstile(
             TEST_TOKEN,
-            TEST_SECRET
+            TEST_SECRET,
+            TEST_HOSTNAME
         );
 
         expect(result).toBe(true);
     });
 
     it("sends a POST request to the Siteverify endpoint", async () => {
-        const fetchMock = mockVerificationResponse({
-            success: true
-        });
+        const fetchMock = mockSuccessfulVerification();
 
-        await verifyTurnstile(TEST_TOKEN, TEST_SECRET);
+        await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
 
         expect(fetchMock).toHaveBeenCalledOnce();
 
@@ -74,11 +85,13 @@ describe("verifyTurnstile - successful verification", () => {
     });
 
     it("sends the correct Content-Type header", async () => {
-        const fetchMock = mockVerificationResponse({
-            success: true
-        });
+        const fetchMock = mockSuccessfulVerification();
 
-        await verifyTurnstile(TEST_TOKEN, TEST_SECRET);
+        await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
 
         const [, options] = fetchMock.mock.calls[0];
 
@@ -87,20 +100,130 @@ describe("verifyTurnstile - successful verification", () => {
         });
     });
 
-    it("sends the secret and token in the request body", async () => {
-        const fetchMock = mockVerificationResponse({
-            success: true
-        });
+    it("sends the correct secret and token", async () => {
+        const fetchMock = mockSuccessfulVerification();
 
-        await verifyTurnstile(TEST_TOKEN, TEST_SECRET);
+        await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
 
         const [, options] = fetchMock.mock.calls[0];
-        const body = JSON.parse(options.body);
 
-        expect(body).toEqual({
+        expect(JSON.parse(options.body)).toEqual({
             secret: TEST_SECRET,
             response: TEST_TOKEN
         });
+    });
+
+    it("accepts a matching local testing hostname", async () => {
+        mockSuccessfulVerification("example.com");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            "example.com"
+        );
+
+        expect(result).toBe(true);
+    });
+
+});
+
+// ============================================================
+// HOSTNAME VERIFICATION
+// ============================================================
+
+describe("verifyTurnstile - hostname validation", () => {
+
+    it("rejects an unexpected hostname", async () => {
+        mockSuccessfulVerification("untrusted.example");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("rejects a missing hostname", async () => {
+        mockVerificationResponse({
+            success: true
+        });
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("rejects a null hostname", async () => {
+        mockVerificationResponse({
+            success: true,
+            hostname: null
+        });
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("rejects an empty hostname", async () => {
+        mockSuccessfulVerification("");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("rejects a subdomain when only the root domain is authorized", async () => {
+        mockSuccessfulVerification("www.camdenroberts.com");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("rejects hostnames with different capitalization", async () => {
+        mockSuccessfulVerification("CAMDENROBERTS.COM");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
+    });
+
+    it("does not accept test credentials' hostname as the production hostname", async () => {
+        mockSuccessfulVerification("example.com");
+
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
+
+        expect(result).toBe(false);
     });
 
 });
@@ -111,27 +234,30 @@ describe("verifyTurnstile - successful verification", () => {
 
 describe("verifyTurnstile - failed verification", () => {
 
-    it("returns false when Cloudflare rejects the token", async () => {
+    it("rejects a failed challenge even with a matching hostname", async () => {
         mockVerificationResponse({
-            success: false
+            success: false,
+            hostname: TEST_HOSTNAME
         });
 
         const result = await verifyTurnstile(
             TEST_TOKEN,
-            TEST_SECRET
+            TEST_SECRET,
+            TEST_HOSTNAME
         );
 
         expect(result).toBe(false);
     });
 
-    it("returns false when success is missing", async () => {
+    it("rejects a response without a success property", async () => {
         mockVerificationResponse({
-            "error-codes": ["invalid-input-response"]
+            hostname: TEST_HOSTNAME
         });
 
         const result = await verifyTurnstile(
             TEST_TOKEN,
-            TEST_SECRET
+            TEST_SECRET,
+            TEST_HOSTNAME
         );
 
         expect(result).toBe(false);
@@ -144,30 +270,34 @@ describe("verifyTurnstile - failed verification", () => {
         "true",
         "false",
         {}
-    ])(
-        "rejects a non-boolean success value: %j",
-        async (value) => {
-            mockVerificationResponse({
-                success: value
-            });
+    ])("rejects non-boolean success values: %j", async (success) => {
+        mockVerificationResponse({
+            success,
+            hostname: TEST_HOSTNAME
+        });
 
-            const result = await verifyTurnstile(
-                TEST_TOKEN,
-                TEST_SECRET
-            );
+        const result = await verifyTurnstile(
+            TEST_TOKEN,
+            TEST_SECRET,
+            TEST_HOSTNAME
+        );
 
-            expect(result).toBe(false);
-        }
-    );
+        expect(result).toBe(false);
+    });
 
-    it("rejects an expired token", async () => {
+    it("rejects an expired or duplicate token", async () => {
         mockVerificationResponse({
             success: false,
+            hostname: TEST_HOSTNAME,
             "error-codes": ["timeout-or-duplicate"]
         });
 
         expect(
-            await verifyTurnstile(TEST_TOKEN, TEST_SECRET)
+            await verifyTurnstile(
+                TEST_TOKEN,
+                TEST_SECRET,
+                TEST_HOSTNAME
+            )
         ).toBe(false);
     });
 
@@ -178,17 +308,21 @@ describe("verifyTurnstile - failed verification", () => {
         });
 
         expect(
-            await verifyTurnstile(TEST_TOKEN, TEST_SECRET)
+            await verifyTurnstile(
+                TEST_TOKEN,
+                TEST_SECRET,
+                TEST_HOSTNAME
+            )
         ).toBe(false);
     });
 
 });
 
 // ============================================================
-// VERIFICATION SERVICE ERRORS
+// SERVICE ERRORS
 // ============================================================
 
-describe("verifyTurnstile - service errors", () => {
+describe("verifyTurnstile - service failures", () => {
 
     it.each([
         400,
@@ -198,21 +332,22 @@ describe("verifyTurnstile - service errors", () => {
         500,
         502,
         503
-    ])(
-        "throws when Cloudflare returns HTTP %i",
-        async (status) => {
-            mockVerificationResponse(
-                { success: false },
-                status
-            );
+    ])("throws for HTTP %i", async (status) => {
+        mockVerificationResponse(
+            { success: false },
+            status
+        );
 
-            await expect(
-                verifyTurnstile(TEST_TOKEN, TEST_SECRET)
-            ).rejects.toThrow(
-                "Turnstile verification service failed"
-            );
-        }
-    );
+        await expect(
+            verifyTurnstile(
+                TEST_TOKEN,
+                TEST_SECRET,
+                TEST_HOSTNAME
+            )
+        ).rejects.toThrow(
+            "Turnstile verification service failed"
+        );
+    });
 
     it("propagates network failures", async () => {
         vi.stubGlobal(
@@ -223,7 +358,11 @@ describe("verifyTurnstile - service errors", () => {
         );
 
         await expect(
-            verifyTurnstile(TEST_TOKEN, TEST_SECRET)
+            verifyTurnstile(
+                TEST_TOKEN,
+                TEST_SECRET,
+                TEST_HOSTNAME
+            )
         ).rejects.toThrow("Network unavailable");
     });
 
@@ -238,9 +377,12 @@ describe("verifyTurnstile - service errors", () => {
         );
 
         await expect(
-            verifyTurnstile(TEST_TOKEN, TEST_SECRET)
+            verifyTurnstile(
+                TEST_TOKEN,
+                TEST_SECRET,
+                TEST_HOSTNAME
+            )
         ).rejects.toThrow();
     });
 
 });
-

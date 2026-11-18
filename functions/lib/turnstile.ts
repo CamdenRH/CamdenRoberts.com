@@ -1,7 +1,8 @@
 
 export async function verifyTurnstile(
     token: string,
-    secret: string
+    secret: string,
+    expectedHostname: string
 ): Promise<boolean> {
     const response = await fetch(
         "https://challenges.cloudflare.com/turnstile/v0/siteverify",
@@ -21,7 +22,7 @@ export async function verifyTurnstile(
         throw new Error("Turnstile verification service failed");
     }
 
-    const result: { success?: boolean } = await response.json();
+    const result: { success?: boolean, hostname?: string } = await response.json();
 
-    return result.success === true;
+    return ((result.success === true) && (result.hostname === expectedHostname));
 }

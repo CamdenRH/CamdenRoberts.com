@@ -17,7 +17,8 @@ Start the local development server:
 
 The site will be available at http://localhost:8788
 
-The contact API requires a TURNSTILE_SECRET_KEY environment variable. For local development, copy .dev.vars.example to .dev.vars and configure the appropriate Turnstile testing secret.
+The contact API requires a TURNSTILE_SECRET_KEY environment variable. For local development, copy .dev.vars.example to .dev.vars and 
+configure the appropriate Turnstile testing secret.
 
 ## Testing
 
@@ -32,9 +33,9 @@ HTTP integration tests are also available in tests/tests.ps1 and require the loc
 ## Project Structure
 
 ```text
-public/     Website pages and static assets
-function/   Cloudflare Pages API and validation utilities
-tests/      Unit and HTTP integration tests
+public/     Static HTML, CSS, JavaScript, and assets
+function/   Cloudflare Pages Functions and backend utilities
+tests/      Vitest unit tests and HTTP integration tests
 ```
 
 ## Deployment
@@ -45,4 +46,5 @@ Production environment secrets are configured through Cloudflare rather than sto
 
 ## Status
 
-This website and contact API are under active development. Input validation and Turnstile verification have been implemented; email delivery and production rate limiting are still being worked on.
+This website and contact API are under active development. Input validation and Turnstile verification have been implemented; email 
+delivery and production rate limiting are now finished and the contact form is fully operational.
