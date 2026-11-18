@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#101517">
+    <meta name="description"
+          content="Software engineer specializing in embedded systems, compiler implementation, and technical prototyping.">
+    <title>CatScript — Compiler Implementation | Camden Roberts-Hurd</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" href="../index.html">camden<span>roberts</span>.</a>
+        <nav class="links" aria-label="Main navigation">
+            <a href="../index.html#projects">Projects</a>
+            <a href="../about.html">About</a>
+            <a href="../documents.html?doc=resume">Résumé</a>
+        </nav>
+        <a class="btn btn-outline" href="../contact.html">
+            Get in touch ↗
+        </a>
+    </div>
+</header>
+<main id="main">
+    <div class="container page-hero">
+        <p class="eyebrow">Project 02 / Compilers</p>
+        <h1>CatScript.</h1>
+        <p class="lead">Building a programming-language compiler from parsing to JVM bytecode.</p>
+        <div class="tags"><span>Java</span><span>ASM</span><span>Maven</span><span>JUnit validation</span></div>
+    </div>
+    <article class="article">
+
+        <p class="eyebrow">Montana State University · CSCI 468</p>
+        <h2>Compiler Pipeline</h2>
+        <p>The project exercises lexical analysis, recursive-descent parsing, abstract syntax tree construction,
+            semantic analysis, and bytecode generation targeting the Java Virtual Machine through ASM. Features
+            include expressions, variables, conditionals, loops, and functions.</p>
+
+        <figure class="architecture-diagram">
+            <img
+                    src="../assets/catscript-architecture.png"
+                    alt="CatScript compiler architecture showing source code passing through tokenization, recursive-descent parsing, AST construction, semantic analysis, and ASM bytecode generation before JVM execution."
+                    loading="eager"
+                    decoding="async"
+            >
+            <figcaption>
+                CatScript compiler pipeline — from source code to JVM execution.
+            </figcaption>
+        </figure>
+
+        <section class="grammar-section" aria-labelledby="grammar-heading">
+            <p class="eyebrow">Language specification</p>
+            <h2 id="grammar-heading">CatScript Grammar</h2>
+
+            <p>
+                CatScript's syntax is defined using Extended Backus–Naur
+                Form (EBNF). The grammar describes the language's statements,
+                expressions, function declarations, and type system.
+            </p>
+
+            <details class="grammar-viewer">
+                <summary class="grammar-header">
+                    <span class="grammar-filename">catscript.ebnf</span>
+                    <span class="grammar-toggle">View full grammar</span>
+                </summary>
+
+                <div class="grammar-content">
+            <pre><code>catscript_program = { program_statement };
+
+program_statement = statement |
+                    function_declaration;
+
+statement = for_statement |
+            if_statement |
+            print_statement |
+            variable_statement |
+            assignment_statement |
+            return_statement |
+            function_call_statement;
+
+for_statement = 'for', '(', IDENTIFIER, 'in', expression ')',
+                '{', { statement }, '}';
+
+if_statement = 'if', '(', expression, ')', '{',
+                    { statement },
+               '}' [ 'else', ( if_statement | '{', { statement }, '}' ) ];
+
+print_statement = 'print', '(', expression, ')'
+
+variable_statement = 'var', IDENTIFIER,
+     [':', type_expression, ] '=', expression;
+
+function_call_statement = function_call;
+
+assignment_statement = IDENTIFIER, '=', expression;
+
+function_declaration = 'function', IDENTIFIER, '(', parameter_list, ')' +
+                       [ ':' + type_expression ], '{',  { statement },  '}';
+
+parameter_list = [ parameter, {',' parameter } ];
+
+parameter = IDENTIFIER [ , ':', type_expression ];
+
+return_statement = 'return' [, expression];
+
+expression = equality_expression;
+
+equality_expression = comparison_expression { ("!=" | "==") comparison_expression };
+
+comparison_expression = additive_expression { ("&gt;" | "&gt;=" | "&lt;" | "&lt;=" ) additive_expression };
+
+additive_expression = factor_expression { ("+" | "-" ) factor_expression };
+
+factor_expression = unary_expression { ("/" | "*" ) unary_expression };
+
+unary_expression = ( "not" | "-" ) unary_expression | primary_expression;
+
+primary_expression = IDENTIFIER | STRING | INTEGER | "true" | "false" | "null"|
+                     list_literal | function_call | "(", expression, ")"
+
+list_literal = '[', expression,  { ',', expression } ']';
+
+function_call = IDENTIFIER, '(', argument_list , ')'
+
+argument_list = [ expression , { ',' , expression } ]
+
+type_expression = 'int' | 'string' | 'bool' | 'object' | 'list' [, '&lt;' , type_expression, '&gt;']
+            </code></pre>
+                </div>
+            </details>
+
+            <p class="grammar-note">
+                Grammar shown for technical reference. Compiler implementation
+                and supporting source code are maintained in a private repository.
+            </p>
+        </section>
+
+        <h2>Validation</h2>
+        <p>I used a provided JUnit test suite extensively, inspecting their expectations to guide implementation, diagnose
+            issues, and check compiler behavior.</p>
+        <div class="callout"><strong>Source availability:</strong> <br><br>CatScript was independently implemented as part of my
+            computer science coursework at Montana State University. Because the assignment and its supporting materials
+            remain in academic use, the implementation is maintained privately.
+            <br><br>
+            This page documents the compiler's architecture, language features, and development process without distributing
+            the source code.
+        </div>
+        <p><a class="arrow" href="../index.html#projects">← Back to projects</a></p></article>
+</main>
+<footer class="foot">
+    <div class="container"><span>© 2026 Camden Roberts-Hurd · Built with purpose.</span>
+        <span>
+        <a href="https://github.com/CamdenRH" rel="noopener noreferrer">GitHub</a> &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/camden-roberts-hurd-265645194/" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="mailto:camdencornetta@gmail.com">Email</a>
+        </span>
+    </div>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

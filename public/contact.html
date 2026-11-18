@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101517">
+    <meta name="description"
+          content="Contact Camden Roberts-Hurd about software engineering opportunities, embedded systems, and technical projects.">
+
+    <title>Contact | Camden Roberts-Hurd</title>
+
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="assets/site.js" defer></script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" href="index.html">
+            camden<span>roberts</span>.
+        </a>
+
+        <nav class="links" aria-label="Main navigation">
+            <a href="index.html#projects">Projects</a>
+            <a href="about.html">About</a>
+            <a href="documents.html?doc=resume">Résumé</a>
+        </nav>
+
+        <a class="btn btn-outline" href="contact.html">
+            Get in touch ↗
+        </a>
+    </div>
+</header>
+
+<main id="main">
+    <div class="container page-hero">
+        <p class="eyebrow">Contact / Opportunities</p>
+        <h1>Let's get in touch.</h1>
+
+        <p class="lead">
+            Interested in working together? I'm open to discussing
+            software engineering opportunities, embedded systems,
+            and other technical projects.
+        </p>
+    </div>
+
+    <section class="section contact-section">
+        <div class="container contact-layout">
+
+            <!-- Contact information -->
+            <div class="contact-info">
+                <p class="eyebrow">Direct contact</p>
+                <h2>Start a conversation.</h2>
+
+                <p class="muted">
+                    Whether you're a recruiter, engineer, or someone
+                    interested in my work, feel free to reach out.
+                </p>
+
+                <div class="contact-method">
+                    <span class="contact-label">EMAIL</span>
+
+                    <a href="mailto:camdencornetta@gmail.com">
+                        camdencornetta@gmail.com ↗
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <span class="contact-label">LINKEDIN</span>
+
+                    <a href="https://www.linkedin.com/in/camden-roberts-hurd-265645194/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Connect on LinkedIn ↗
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <span class="contact-label">GITHUB</span>
+
+                    <a href="https://github.com/CamdenRH"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        github.com/CamdenRH ↗
+                    </a>
+                </div>
+
+                <div class="contact-method">
+                    <span class="contact-label">LOCATION</span>
+                    <p>Seattle, Washington</p>
+                </div>
+            </div>
+
+            <!-- Form configuration -->
+            <div class="contact-form-card">
+                <p class="eyebrow">Send a message</p>
+                <h2>What can I help you with?</h2>
+
+                <p class="muted">
+                    Complete the form below to send me a message.
+                </p>
+
+                <form id="contact-form"
+                      class="contact-form"
+                      method="POST">
+
+                    <label for="contact-name">Your name</label>
+                    <input
+                            type="text"
+                            id="contact-name"
+                            name="name"
+                            placeholder="Your name"
+                            autocomplete="name"
+                            minlength="2"
+                            maxlength="100"
+                            required>
+
+                    <label for="contact-email">Email address</label>
+                    <input
+                            type="email"
+                            id="contact-email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            maxlength="254"
+                            required>
+
+                    <label for="contact-subject">Subject</label>
+                    <input
+                            type="text"
+                            id="contact-subject"
+                            name="subject"
+                            placeholder="What would you like to discuss?"
+                            minlength="3"
+                            maxlength="150"
+                            required>
+
+                    <label for="contact-message">Message</label>
+                    <textarea
+                            id="contact-message"
+                            name="message"
+                            rows="6"
+                            placeholder="Tell me a little about what you have in mind..."
+                            minlength="10"
+                            maxlength="5000"
+                            required></textarea>
+
+                    <div
+                            class="cf-turnstile"
+                            data-sitekey="1x00000000000000000000AA">
+                    </div>
+
+                    <button
+                            class="btn contact-submit"
+                            type="submit">
+                        Send message ↗
+                    </button>
+
+                    <p id="contact-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="foot">
+    <div class="container">
+        <span>© 2026 Camden Roberts-Hurd · Built with purpose.</span>
+
+        <span>
+            <a href="https://github.com/CamdenRH"
+               target="_blank" rel="noopener noreferrer">GitHub</a>
+            &nbsp;·&nbsp;
+            <a href="https://www.linkedin.com/in/camden-roberts-hurd-265645194/"
+               target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            &nbsp;·&nbsp;
+            <a href="mailto:camdencornetta@gmail.com">Email</a>
+        </span>
+    </div>
+</footer>
+<script src="/assets/contact.js" defer></script>
+<script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer>
+</script>
+</body>
+</html>

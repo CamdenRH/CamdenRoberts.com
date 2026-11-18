@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Documents | Camden Roberts</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" href="index.html">
+            camden<span>roberts</span>.
+        </a>
+
+        <nav class="links" aria-label="Main navigation">
+            <a href="index.html#projects">Projects</a>
+            <a href="about.html">About</a>
+            <a href="documents.html?doc=resume">Résumé</a>
+        </nav>
+
+        <a class="btn btn-outline" href="contact.html">
+            Get in touch ↗
+        </a>
+    </div>
+</header>
+
+<main id="main">
+    <section class="section">
+        <div class="container">
+            <p class="eyebrow">Documents</p>
+            <h1 id="document-title">Engineering Résumé</h1>
+
+            <div class="document-actions">
+                <a class="btn" id="download-pdf" href="#">
+                    Download PDF ↓
+                </a>
+
+                <a class="btn btn-outline" id="download-word" href="#">
+                    Download Word ↓
+                </a>
+
+                <a class="btn btn-outline"
+                   href="index.html">
+                    Back to home
+                </a>
+            </div>
+
+            <div class="document-viewer">
+                <iframe
+                        id="document-frame"
+                        title="Document preview"
+                        loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    const documents = {
+        resume: {
+            title: "Engineering Résumé",
+            pdf: "assets/Camden-Roberts-Hurd-Resume.pdf",
+            word: "assets/Camden-Roberts-Hurd-Resume.docx"
+        },
+        cv: {
+            title: "Technical CV",
+            pdf: "assets/Camden-Roberts-Hurd-CV.pdf",
+            word: "assets/Camden-Roberts-Hurd-CV.docx"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const docType = params.get("doc") === "cv" ? "cv" : "resume";
+    const selected = documents[docType];
+
+    document.title = `${selected.title} | Camden Roberts`;
+
+    document.getElementById("document-title").textContent =
+        selected.title;
+
+    document.getElementById("document-frame").src =
+        selected.pdf + "#toolbar=0";
+
+    const pdfLink = document.getElementById("download-pdf");
+    pdfLink.href = selected.pdf;
+    pdfLink.download = selected.pdf.split("/").pop();
+
+    const wordLink = document.getElementById("download-word");
+    wordLink.href = selected.word;
+    wordLink.download = selected.word.split("/").pop();
+</script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

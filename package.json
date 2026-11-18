@@ -1,0 +1,22 @@
+{
+  "name": "camdenroberts",
+  "version": "1.0.0",
+  "description": "A static, responsive portfolio website. No build tools or package installation required.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261117.1",
+    "typescript": "^7.0.2",
+    "vitest": "5.1.0",
+    "wrangler": "^4.164.0"
+  }
+}
