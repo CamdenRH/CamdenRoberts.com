@@ -148,16 +148,22 @@
                             maxlength="5000"
                             required></textarea>
 
+                    <!--
                     <div
                             class="cf-turnstile"
                             data-sitekey="1x00000000000000000000AA">
                     </div>
+                    -->
 
                     <button
                             class="btn contact-submit"
-                            type="submit">
+                            type="submit"
+                            disabled>
                         Send message ↗
                     </button>
+
+                    <p>This contact form is currently under development and will be functional soon! In the meantime, feel free
+                    to reach out directly using my listed email address on the left.</p>
 
                     <p id="contact-status" role="status" aria-live="polite"></p>
                 </form>
@@ -182,10 +188,12 @@
     </div>
 </footer>
 <script src="/assets/contact.js" defer></script>
+<!--
 <script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         async
         defer>
 </script>
+-->
 </body>
 </html>
