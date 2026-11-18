@@ -22,16 +22,20 @@ The contact API requires a TURNSTILE_SECRET_KEY environment variable. For local 
 ## Testing
 
 Unit tests are written using Vitest and are built to cover input validation, normalization, request-body handling, and API behavior.
-`npx tsc --noEmit
-npx vitest run`
+```powershell
+npx tsc --noEmit
+npx vitest run
+```
 
 HTTP integration tests are also available in tests/tests.ps1 and require the local Wrangler server to be running.
 
 ## Project Structure
 
-`public/    Website pages and static assets
+```text
+public/     Website pages and static assets
 function/   Cloudflare Pages API and validation utilities
-tests/      Unit and HTTP integration tests`
+tests/      Unit and HTTP integration tests
+```
 
 ## Deployment
 
