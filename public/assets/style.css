@@ -496,7 +496,7 @@ h3 {
 }
 
 /* In-progress status badge */
-.project-status {
+.project-status-in-progress {
     display: inline-flex;
     align-items: center;
     padding: 5px 9px;
@@ -506,6 +506,44 @@ h3 {
 
     background: rgba(245, 158, 11, 0.10);
     color: #fbbf24;
+
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Live status badge */
+.project-status-live {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+
+    border: 1px solid rgba(42, 156, 0, 0.35);
+    border-radius: 6px;
+
+    background: rgba(53, 163, 0, 0.1);
+    color: #369e01;
+
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Complete status badge */
+.project-status-complete {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 9px;
+
+    border: 1px solid rgba(0, 117, 165, 0.35);
+    border-radius: 6px;
+
+    background: rgba(0, 101, 163, 0.1);
+    color: #018c9e;
 
     font-size: 0.65rem;
     font-weight: 600;
@@ -854,4 +892,11 @@ h3 {
         scroll-behavior: auto !important;
         transition: none !important
     }
+}
+
+.portfolio-preview img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 }

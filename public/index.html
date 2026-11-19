@@ -30,10 +30,11 @@
     <section class="hero">
         <div class="container">
             <p class="eyebrow">Embedded systems / software engineering</p>
-            <h1>Engineering at the intersection of <span style="color:var(--accent)">hardware and software.</span></h1>
-            <p class="lead">Hi! I'm Camden, a recent computer science graduate looking for work. I have experience designing, building, and integrating
-                custom embedded systems for autonomous vehicles. I have also developed multiple small-scale software projects including a compiler,
-                server management interface, and two published Minecraft mods.</p>
+            <h1>Software Engineer <span style="color:var(--accent)">Looking for work</span></h1>
+            <p class="lead">Hi! I'm Camden, a recent computer science graduate looking to take the next step in my career.
+                I have experience designing, building, and integrating custom embedded systems for autonomous vehicles. I
+                have also developed multiple small-scale software projects including a compiler, custom portfolio website
+                (welcome!), and a Minecraft mod.</p>
             <div class="hero-actions"><a class="btn" href="#projects">Explore my work ↘</a><a class="btn btn-outline" href="documents.html?doc=resume">View résumé</a></div>
         </div>
     </section>
@@ -55,19 +56,28 @@
                     <img src="assets/white-lightning-pcb.png" alt="KiCad render of the White Lightning custom ESP32 control board">
                 </div>
                 <div class="details">
-                    <p class="meta">01 / Embedded hardware + firmware</p>
+                    <div class="project-meta-row">
+                        <p class="meta">01 / Embedded Hardware + Firmware</p>
+                        <span class="project-status-complete">Complete</span>
+                    </div>
                     <h3>White Lightning</h3>
-                    <p>Independently designed controller PCB and embedded C++ firmware for a physical FPV racing vehicle.</p>
+                    <p>Independently designed controller PCB and embedded C++ firmware for a team-project physical FPV racing vehicle.</p>
                     <span class="arrow">Learn more →</span>
                     <div class="tags">
                         <span>ESP32</span><span>C++</span><span>KiCad</span><span>Arduino</span>
                     </div>
                 </div>
+                </a>
 
-            </a><a class="project" href="projects/catscript.html">
-                <div class="visual code-visual">source → tokens → AST<br>types → bytecode → JVM</div>
+                <a class="project" href="projects/catscript.html">
+                    <div class="visual">
+                        <img src="assets/CatScript_Compiler.png" alt="CatScript interface with parse tree.">
+                    </div>
                 <div class="details">
-                    <p class="meta">02 / Compilers + Java</p>
+                    <div class="project-meta-row">
+                        <p class="meta">02 / Compilers + Java</p>
+                        <span class="project-status-complete">Complete</span>
+                    </div>
                     <h3>CatScript</h3>
                     <p>Independently implemented a compiler within an academic environment, from tokenization to bytecode generation.</p>
                     <span class="arrow">Learn more →</span>
@@ -75,24 +85,44 @@
                         <span>Java</span><span>ASM</span><span>JVM</span><span>Unit Testing</span>
                     </div>
                 </div>
-            </a>
+                </a>
+
+                <a class="project" href="projects/portfolio.html">
+                    <div class="visual">
+                        <img src="assets/homepage.png" alt="This website's home page">
+                    </div>
+                    <div class="details">
+                        <div class="project-meta-row">
+                            <p class="meta">03 / Web Development + Backend</p>
+                            <span class="project-status-live">Live</span>
+                            <span class="project-status-in-progress">In Progress</span>
+                        </div>
+                        <h3>CamdenRoberts.com</h3>
+                        <p>The very same! A custom portfolio website with a TypeScript contact API, server-side validation, bot protection,
+                        and automated email delivery, deployed using Cloudflare Pages.</p>
+                        <span class="arrow">Learn more →</span>
+                        <div class="tags">
+                            <span>HTML</span><span>TypeScript</span><span>Cloudflare</span><span>Resend</span><span>Vitest</span><span>API Integration</span>
+                        </div>
+                    </div>
+                </a>
 
                 <a class="project" href="projects/finiteworlds.html">
-                    <div class="visual abstract-visual" aria-label="Abstract terrain contour pattern">
-                        ∿ ∿ ∿
+                    <div class="visual">
+                        <img src="assets/finiteworlds.png" alt="Development screenshot of FiniteWorlds">
                     </div>
 
                     <div class="details">
                         <div class="project-meta-row">
-                            <p class="meta">03 / AI-assisted Mod Development</p>
-                            <span class="project-status">In Progress</span>
+                            <p class="meta">04 / AI-assisted Mod Development</p>
+                            <span class="project-status-in-progress">In Progress</span>
                         </div>
 
                         <h3>FiniteWorlds</h3>
 
                         <p>
-                            A modular terrain generation mod for Minecraft,
-                            written with AI assistance, reworking game progression.
+                            A modular terrain generation mod for Minecraft, written with AI assistance, reworking game progression and bringing
+                            realistic geology, hydrology, and terrain to finite minecraft worlds.
                         </p>
 
                         <span class="arrow">Learn more →</span>
@@ -105,40 +135,6 @@
                         </div>
                     </div>
                 </a>
-
-                <a class="project" href="projects/servup.html">
-                    <div class="visual code-visual">
-                        <div class="servup-terminal">
-                            <span class="terminal-prompt">$ servup</span>
-                            <span>Starting server...</span>
-                            <span class="terminal-success">Server running ✓</span>
-                            <span>Listening for commands_</span>
-                        </div>
-                    </div>
-
-                    <div class="details">
-                        <div class="project-meta-row">
-                            <p class="meta">04 / Desktop Software + Python</p>
-                            <span class="project-status">In Progress</span>
-                        </div>
-
-                        <h3>ServUP</h3>
-
-                        <p>
-                            An AI-assisted desktop application for managing multiple game
-                            servers through a unified interface with live console access.
-                        </p>
-
-                        <span class="arrow">Learn more →</span>
-
-                        <div class="tags">
-                            <span>Python</span>
-                            <span>Tkinter</span>
-                            <span>PyInstaller</span>
-                            <span>AI-assisted</span>
-                        </div>
-                    </div>
-                </a>
             </div>
         </div>
     </section>
@@ -147,14 +143,15 @@
         <div class="container grid-2">
             <div>
                 <p class="eyebrow">A little about me</p>
-                <h2>Curious about the entire stack.</h2>
+                <h2>Ready for the<br> next step.</h2>
             </div>
             <div>
-                <p class="muted">I earned my B.S. in Computer Science from Montana State University in May 2026. My
-                work has ranged from PCB design and ESP32 firmware development to compiler implementation and technical content
-                development in aviation operations.</p>
-                <p class="muted">I'm interested in early-career engineering opportunities involving embedded devices,
-                    systems software, developer tools, and practical applications.</p>
+                <p class="muted">
+                    I earned my B.S. in Computer Science from Montana State University in May 2026. My work has ranged
+                    from building autonomous vehicle control systems to web development and technical training program
+                    implementation in airline operations.<br><br>I'm interested in early-career engineering opportunities
+                    involving embedded devices, systems software, web development, and practical applications.
+                </p>
                 <a href="about.html" class="arrow">A bit more about me →</a>
             </div>
         </div>
@@ -162,12 +159,21 @@
 
     <section class="section">
         <div class="container contact-card">
-            <p class="eyebrow">Get in touch</p>
-            <h2>Let's build something useful.</h2>
-            <p class="lead">I'm open to discussing entry-level engineering opportunities and technical projects.</p>
+            <p class="eyebrow">Reach out</p>
+            <h2>
+                Have something in mind?
+            </h2>
+            <p class="lead">
+                I'm open to discussing entry-level engineering careers, website and backend design opportunities, or
+                any other technical projects in both hardware and software development!
+            </p>
             <div class="hero-actions">
-                <a class="btn" href="mailto:camdencornetta@gmail.com">Email me ↗</a>
-                <a class="btn btn-outline" href="https://github.com/CamdenRH" rel="noopener noreferrer">GitHub ↗</a>
+                <a class="btn" href="contact.html">
+                    Get in touch ↗
+                </a>
+                <a class="btn btn-outline" href="https://github.com/CamdenRH" rel="noopener noreferrer">
+                    GitHub ↗
+                </a>
             </div>
         </div>
     </section>
@@ -175,7 +181,7 @@
 </main>
 <footer class="foot">
     <div class="container">
-        <span>© 2026 Camden Roberts-Hurd · Built with purpose.</span>
+        <span>© 2026 Camden Roberts-Hurd</span>
         <span>
             <a href="https://github.com/CamdenRH" rel="noopener noreferrer">GitHub</a> &nbsp;·&nbsp;
             <a href="https://www.linkedin.com/in/camden-roberts-hurd-265645194/" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp;

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#101517">
+    <meta name="description"
+          content="Software engineer specializing in embedded systems, compiler implementation, and technical prototyping.">
+    <title>CamdenRoberts.com — Web Development + Backend  | Camden Roberts-Hurd</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+    <div class="container nav"><a class="brand" href="../index.html">camden<span>roberts</span>.</a>
+        <nav class="links" aria-label="Main navigation"><a href="../index.html#projects">Projects</a><a
+                href="../about.html">About</a><a href="../documents.html?doc=resume">Résumé</a></nav>
+        <a class="btn btn-outline" href="../contact.html">
+            Get in touch ↗
+        </a>
+    </div>
+</header>
+<main id="main">
+    <div class="container page-hero"><p class="eyebrow">Project 03 / Web Development + Backend</p>
+        <h1>CamdenRoberts.com</h1>
+        <p class="lead">A custom-built portfolio website with a TypeScript backend, developed to showcase my engineering projects while
+        gaining practical experience with web development, API design, security, testing, and cloud deployment.</p>
+        <div class="tags">
+            <span>HTML</span><span>TypeScript</span><span>Cloudflare Pages</span><span>Resend</span><span>Vitest</span><span>API Integration</span>
+        </div>
+    </div>
+    <article class="article">
+        <div class="visual portfolio-preview">
+            <img src="../assets/homepage.png" alt="This website's home page">
+        </div>
+        <h2>Overview</h2>
+        <p>
+            I began work on this project mid-November of 2026. I wanted a place to present my technical work, document my experience, and
+            provide a direct way for prospective employers and collaborators to reach out and get in touch.<br><br>Rather than using a website
+            builder or a prebuilt contact-form service, I decided to develop and deploy this site myself. This gave me an opportunity to work
+            with technologies and development practices outside my previous projects and education while building something that I could actively
+            use. Why use Squarespace when I have a perfectly good opportunity to learn how to make a site myself?<br><br>The website remains a
+            work in progress, with a functional contact system and ongoing improvements to the content, interface, and performance. This project
+            is somewhat of a test bed for my own discovery of web development.
+        </p>
+        <h2>Architecture</h2>
+        <p>
+            The frontend of this site uses HTML, CSS, and vanilla JavaScript. I chose to avoid a frontend framework to keep the site lightweight,
+            to aid in my learning of web development, and to maintain direct control over the structure and behavior of the site throughout its
+            lifespan.<br><br>This site is hosted on Cloudflare Pages and is deployed through a GitHub-connected workflow. The contact form communicates
+            with a custom TypeScript API implemented using Cloudflare Pages Functions.<br><br>This architecture separates the static website from
+            server-side request processing without requiring a traditional application server.
+        </p>
+        <h2>Contact API & Email Integration</h2>
+        <p>
+            I developed a contact API that accepts JSON submissions, validates all required fields, enforces input-length and request-size limits,
+            and handles malformed requests.<br><br>The endpoint also performs strict UTF-8 decoding and normalizes accepted submissions before
+            processing them.<br><br>To reduce automated submissions, the contact system integrates Cloudflare Turnstile with server-side token and
+            hostname verification. A Cloudflare rate-limiting rule provides an additional layer of abuse protection.<br><br>Validated submissions
+            are sent through the Resend email API using an authenticated address on my domain. Messages are delivered to my personal email address,
+            with the sender's email configured as the Reply-To address.
+        </p>
+        <h2>Development & Testing</h2>
+        <p>
+            I implemented the frontend interactions, request-handling logic, API integrations, and deployment configuration, using AI assistance for
+            technical guidance, code review, and test suite generation.<br><br>The backend is covered by 177 automated tests using Vitest. These
+            exercise input validation, normalization, request-stream handling, Turnstile verification, email integration, and HTTP response behavior.
+            <br><br>I also performed integration testing against a locally running Cloudflare environment and verified successful message delivery
+            through the deployed website.
+        </p>
+        <h2>Challenges & Lessons</h2>
+        <p>
+            Several issues emerged during development, particularly around the differences between browser-side and server-side validation, asynchronous
+            request handling, and handling failures without incorrectly reporting success to users.<br><br>Deploying the API also required configuring
+            dependency installation for Cloudflare Pages Functions and securely managing environment variables.<br><br>Email integration introduced
+            another set of practical challenges involving DNS configuration, sender authentication, DKIM, SPF, and DMARC. Working through these issues
+            helped me better understand how application code interacts with the infrastructure supporting it.
+        </p>
+        <h2>Future Development</h2>
+        <p>
+            I plan to continue refining the website's visual design, mobile responsiveness, accessibility, and project documentation.<br><br>Further
+            backend experimentation may include more advanced rate limiting, monitoring, and performance optimizations.<br><br>This project serves
+            both as my professional portfolio and as an ongoing opportunity for me to develop practical software engineering skills.
+        </p>
+        <p><a class="arrow" href="https://github.com/CamdenRH/camdenroberts.com" rel="noopener noreferrer">View public
+            repository ↗</a></p>
+        <p><a class="arrow" href="../index.html#projects">← Back to projects</a></p></article>
+</main>
+<footer class="foot">
+    <div class="container"><span>© 2026 Camden Roberts-Hurd</span><span><a
+            href="https://github.com/CamdenRH" rel="noopener noreferrer">GitHub</a> &nbsp;·&nbsp; <a
+            href="https://www.linkedin.com/in/camden-roberts-hurd-265645194/" rel="noopener noreferrer">LinkedIn</a> &nbsp;·&nbsp; <a
+            href="mailto:camdencornetta@gmail.com">Email</a></span></div>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
